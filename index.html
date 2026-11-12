@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Send Money Receipt Generator</title>
+<meta name="description" content="Fill in the details, preview the receipt live and download a high-quality screenshot." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+
+  <header class="app-head">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <div>
+        <h1>Send Money Receipt</h1>
+        <p>Fill in the numbers, preview it live, download the screenshot.</p>
+      </div>
+    </div>
+    <span class="size-badge">918 &times; 1600 PNG</span>
+  </header>
+
+  <main class="layout">
+
+    <!-- ------------------------------------------------ editor -->
+    <section class="panel editor" aria-label="Receipt details">
+      <form id="receiptForm" autocomplete="off" novalidate>
+
+        <div class="group">
+          <h2 class="group-title">Recipient</h2>
+          <div class="field">
+            <label for="phone1">Phone number <span>(main)</span></label>
+            <input id="phone1" name="phone1" type="tel" inputmode="numeric" maxlength="24"
+                   value="01313727870" placeholder="01XXXXXXXXX" />
+          </div>
+          <div class="field">
+            <label for="phone2">Phone number <span>(secondary)</span></label>
+            <input id="phone2" name="phone2" type="tel" inputmode="numeric" maxlength="24"
+                   value="01313727870" placeholder="01XXXXXXXXX" />
+          </div>
+          <button type="button" id="swapBtn" class="btn compact">
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+              <path d="M7 4 4 7l3 3M4 7h11a4 4 0 0 1 0 8H9m0 0 3 3m-3-3 3-3" fill="none"
+                    stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Swap main and secondary</span>
+          </button>
+        </div>
+
+        <div class="group">
+          <h2 class="group-title">Transaction</h2>
+          <div class="row">
+            <div class="field">
+              <label for="time">Time</label>
+              <input id="time" name="time" type="text" maxlength="14"
+                     value="01:58pm" placeholder="01:58pm" />
+              <label class="checkline" for="manualTime">
+                <input id="manualTime" name="manualTime" type="checkbox" />
+                <span>Manual time</span>
+              </label>
+            </div>
+            <div class="field">
+              <label for="date">Date</label>
+              <input id="date" name="date" type="text" maxlength="14"
+                     value="06/10/26" placeholder="dd/mm/yy" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="trx">Transaction ID</label>
+            <input id="trx" name="trx" type="text" maxlength="12"
+                   value="DJ61HQWKV5" placeholder="DJ61HQWKV5" />
+          </div>
+          <div class="field">
+            <label for="amount">Amount <span>(৳)</span></label>
+            <input id="amount" name="amount" type="text" inputmode="decimal" maxlength="16"
+                   value="550" placeholder="550" />
+          </div>
+          <div class="field">
+            <label for="reference">Reference</label>
+            <input id="reference" name="reference" type="text" maxlength="26"
+                   value="shelby abir" placeholder="Name" />
+          </div>
+        </div>
+
+        <div class="group">
+          <h2 class="group-title">Header</h2>
+          <div class="field">
+            <label for="title">Screen title</label>
+            <input id="title" name="title" type="text" maxlength="20"
+                   value="সেন্ড মানি" placeholder="সেন্ড মানি" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="resetBtn" class="btn ghost">Reset to reference</button>
+          <button type="button" id="copyBtn" class="btn ghost">Copy values</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ------------------------------------------------ preview -->
+    <section class="panel preview" aria-label="Receipt preview">
+      <div class="preview-bar">
+        <div class="preview-title">
+          Live preview
+          <span class="live-dot" title="Updates as you type"></span>
+        </div>
+        <div class="preview-tools">
+          <label class="quality">
+            Quality
+            <select id="quality" aria-label="Export quality">
+              <option value="1">1&times; (918 &times; 1600)</option>
+              <option value="2" selected>2&times; (1836 &times; 3200)</option>
+              <option value="3">3&times; (2754 &times; 4800)</option>
+            </select>
+          </label>
+          <button type="button" id="downloadBtn" class="btn primary">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path d="M12 3v11m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
+                    fill="none" stroke="currentColor" stroke-width="1.9"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Download PNG</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="stage-wrap" id="stageWrap">
+        <div class="stage" id="stage">
+
+          <!-- check mark -->
+          <img class="r-check" src="assets/icon-check.svg" alt="" width="75" height="75" />
+
+          <div class="r-title" id="rTitle">সেন্ড মানি</div>
+
+          <!-- recipient card -->
+          <div class="r-card1">
+            <img class="r-avatar" src="assets/avatar.png" alt="" width="102" height="102" />
+            <div class="r-phone-main" id="rPhone1">01313727870</div>
+            <div class="r-phone-sub" id="rPhone2">01313727870</div>
+          </div>
+
+          <!-- details card -->
+          <div class="r-card2">
+            <div class="r-div-v"></div>
+            <div class="r-div-h"></div>
+          </div>
+
+          <div class="r-label r-label-time">সময়</div>
+          <div class="r-value r-time" id="rTime">01:58pm 06/10/26</div>
+
+          <div class="r-label r-label-trx">ট্রানজেকশন আইডি</div>
+          <div class="r-value r-trx" id="rTrx">DJ61HQWKV5</div>
+
+          <div class="r-label r-label-amount">পরিমাণ</div>
+          <div class="r-value r-amount" id="rAmount">৳550.00</div>
+
+          <div class="r-label r-label-ref">রেফারেন্স</div>
+          <div class="r-value r-ref" id="rRef">shelby abir</div>
+
+          <img class="r-logo" src="assets/bkash-logo.png" alt="" width="152" height="69" />
+        </div>
+      </div>
+
+      <p class="hint" id="hint">The downloaded image is identical to this preview, only larger.</p>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="vendor/html2canvas.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
